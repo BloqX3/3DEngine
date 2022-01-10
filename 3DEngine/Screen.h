@@ -1,28 +1,12 @@
 #pragma once
-
-#include <Windows.h>
-#include <cmath>
-
-class Point {
-public:
-    float x;
-    float y;
-    Point(float X, float Y);
-};
-
-class Screen
+#include "Algorithms.h"
+class IScreen
 {
-private:
-    int length;
+public:
     int Width;
     int Height;
-    wchar_t* screen;
-    HANDLE hConsole;
-    DWORD dwBytesWritten = 0;
-public:
-    Screen(int width, int height);
-    void Fill();
-    void setPixel(short x, short y, char color);
-    void Display();
+    virtual void Fill() = 0;
+    virtual void setPixel(short x, short y, char color) = 0;
+    virtual void Display() = 0;
     void drawLine(Point p1, Point p2, char color = 'A');
 };
