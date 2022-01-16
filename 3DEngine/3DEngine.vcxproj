@@ -142,11 +142,13 @@
     <ClCompile Include="3DEngine.cpp" />
     <ClCompile Include="Algorithms.cpp" />
     <ClCompile Include="ConsoleScreen.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorithms.h" />
     <ClInclude Include="ConsoleScreen.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

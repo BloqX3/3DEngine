@@ -2,7 +2,7 @@
 #include "screen.h"
 #include <Windows.h>
 
-class ConsoleScreen : public IScreen
+class ConsoleScreen : public IScreen<char>
 {
 private:
     int length;
