@@ -1,5 +1,5 @@
 #pragma once
-#include "screen.h"
+#include "Core.h"
 #include <Windows.h>
 
 class ConsoleScreen : public IScreen<char>
@@ -12,6 +12,7 @@ private:
 public:
     ConsoleScreen(int width, int height);
     void Fill();
+    void Fill(char color);
     void setPixel(short x, short y, char color);
     void Display();
 };

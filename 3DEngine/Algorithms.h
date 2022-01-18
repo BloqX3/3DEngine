@@ -1,9 +1,11 @@
-#pragma once
-#include "Screen.h"
+﻿#pragma once
+#include "Core.h"
 #include <cmath>
 
-float Distance(Point p1, Point p2, Point p3);
 float Pithagors(Point p1);
+void RotateVector(Vector3D v, float XΘ, float YΘ, float ZΘ);
+void RotateZ(Vector3D* v, float newTheta);
+float toRad(float rad);
 
 template<typename T>
 void swap(T& lhs, T& rhs) {
@@ -11,15 +13,6 @@ void swap(T& lhs, T& rhs) {
     lhs = rhs;
     rhs = holder;
 }
-
-class Vertex {
-public:
-    float x;
-    float y;
-    float z;
-    Vertex(float X, float Y, float Z);
-    operator Point() const { return Point(x, y); }
-};
 
 //template<typename T>
 //void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
@@ -38,7 +31,8 @@ public:
 //    }
 //}
 
-#include <iostream>
+
+
 template<typename T>
 void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
 
@@ -49,32 +43,30 @@ void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
     float xL = 1.0 / sqrt(1.0 + m * m);
     float yL = (std::isinf(m)?1.0: m*xL);
 
-    //float xL = cosf(atanf(m));
-    //float yL = sinf(atanf(m));
-
-    //if (p1.y < p2.y && p1.x > p2.x)
-    //    swap(p1, p2);
-
-    if (p1.x > p2.x)
+    if (p1.x > p2.x || (p1.x == p2.x) && p1.y > p2.y)
         swap(p1, p2);
-
 
     for (int i = 0; i < length; i++) {
         screen->setPixel((i * xL + p1.x), (i * yL+ p1.y), color);                                   
     }
 }
 
-class Triangle {
-public:
-    Vertex* a;
-    Vertex* b;
-    Vertex* c;
-    Triangle(Vertex* A, Vertex* B, Vertex* C);
-};
 
 template<typename T>
 void drawTriangle(IScreen<T>* screen, Triangle triangle, char color) {
-    drawLine(screen, *triangle.a, *triangle.b, color);
-    drawLine(screen, *triangle.b, *triangle.c, color);
-    drawLine(screen, *triangle.c, *triangle.a, color);
+    drawLine(screen, triangle.a, triangle.b, color);
+    drawLine(screen, triangle.b, triangle.c, color);
+    drawLine(screen, triangle.c, triangle.a, color);
+}
+
+Vector3D normalizeVector(Vector3D v, float width, float height);
+
+template<typename T>
+void drawTriangleNormalized(IScreen<T>* screen, Triangle triangle, char color) {
+    triangle.a = normalizeVector(triangle.a, screen->Width, screen->Height);
+    triangle.b = normalizeVector(triangle.b, screen->Width, screen->Height);
+    triangle.c = normalizeVector(triangle.c, screen->Width, screen->Height);
+    drawLine(screen, triangle.a, triangle.b, color);
+    drawLine(screen, triangle.b, triangle.c, color);
+    drawLine(screen, triangle.c, triangle.a, color);
 }

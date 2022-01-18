@@ -1,5 +1,5 @@
 #include "ConsoleScreen.h"
-
+#include <array>
 
 ConsoleScreen::ConsoleScreen(int width, int height) {
     Width = width;
@@ -14,8 +14,14 @@ ConsoleScreen::ConsoleScreen(int width, int height) {
 
 }
 void ConsoleScreen::Fill() {
-    for (int l = 0; l < length; l++) screen[l] = '*';
+    std::fill_n(screen, length, '*');
+    //for (int l = 0; l < length; l++) screen[l] = '*';
 }
+void ConsoleScreen::Fill(char color) {
+    std::fill_n(screen, length, color);
+    //for (int l = 0; l < length; l++) screen[l] = color;
+}
+
 void ConsoleScreen::setPixel(short x, short y, char color) {
     screen[y * Width + x] = color;
 }

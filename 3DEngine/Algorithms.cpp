@@ -1,37 +1,39 @@
-#include "Algorithms.h"
-
-
-float Distance(Point p1, Point p2, Point p3) {
-    //return std::abs(p1.x * p2.y - p1.y * p2.x
-    //              + p2.x * p3.y - p2.y * p3.x
-    //              + p1.y * p3.x - p1.x * p3.y) 
-    //    / std::sqrt((p2.x - p1.x)* (p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
-    return std::abs(
-        p1.x * (p2.y - p3.y)
-        + p2.x * (p3.y - p1.y)
-        + p3.x * (p1.y - p2.y))
-        / std::sqrt((p3.x - p1.x) * (p3.x - p1.x) + (p3.y - p1.y) * (p3.y - p1.y));
-
-}
+﻿#include "Algorithms.h"
 
 float Pithagors(Point p1)
 {
     return sqrt(p1.x * p1.x + p1.y * p1.y);
 }
 
-Vertex::Vertex(float X, float Y, float Z) {
-    x = X;
-    y = Y;
-    z = Z;
+void RotateVector(Vector3D v, float XΘ, float YΘ, float ZΘ) {
+
 }
 
-Triangle::Triangle(Vertex* A, Vertex* B, Vertex* C) {
-    a = A;
-    b = B;
-    c = C;
+Vector3D normalizeVector(Vector3D v, float width, float height) {
+    return Vector3D((v.x + 0.5) * width, height - (v.y + 0.5) * height, v.z);
 }
 
-//template<typename T>
-//void drawTriangle(IScreen<T>* screen, Triangle* triangle) {
-//    
-//}
+#define π 3.14159265358979323846
+
+float toRad(float degree) {
+    return degree * π / 180.0;
+}
+
+#include <iostream>
+void RotateZ(Vector3D* v, float newTheta) {
+    //float Z = Pithagors(*v);
+    //float theta = atanf(v->y/v->x);
+    //v->x = copysignf(cosf(theta + toDegree(newTheta)) * Z, v->x);
+    //v->y = copysignf(sinf(theta + toDegree(newTheta)) * Z, v->y);
+    //v->x = cosf(theta + newTheta) * Z;
+    //v->y = sinf(theta + newTheta) * Z;
+
+    float a = cosf(toRad(newTheta));
+    float b = sinf(toRad(newTheta));
+
+    float x = v->x * a - v->y * b;
+    float y = v->x * b + v->y * a;
+    v->x = x;
+    v->y = y;
+}
+
