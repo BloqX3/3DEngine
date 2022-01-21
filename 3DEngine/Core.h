@@ -22,6 +22,8 @@ public:
     Vector3D();
     Vector3D(float X, float Y, float Z);
     operator Point() const { return Point(x, y); }
+    //float operator [](int i) const { return i == 0 ? x : i == 1 ? y : z; }
+    float* operator [](int i) { return i == 0 ? &x : i == 1 ? &y : &z; }
 };
 
 class Triangle {

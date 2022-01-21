@@ -10,7 +10,7 @@ Object* Cube(float side)
 {
 	Object* object = new Object;
 	float offset = side / 2.0;
-
+	/*Under Construction!*/
 	object->triangles = { 
 		// front
 		Triangle(Vector3D(-offset, offset, offset),
@@ -35,9 +35,30 @@ Object* Cube(float side)
 		Triangle(Vector3D(offset, offset, offset),
 				Vector3D(-offset, offset, -offset),
 				Vector3D(offset, offset, -offset)),
+		// Bottom
+		Triangle(Vector3D(-offset, -offset, -offset),
+				Vector3D(offset, -offset, offset),
+				Vector3D(-offset, -offset, offset)),
+		Triangle(Vector3D(offset, -offset, offset),
+				Vector3D(-offset, -offset, -offset),
+				Vector3D(offset, -offset, -offset)),
 
+		// right Sides
+		Triangle(Vector3D(offset, -offset, offset),
+				Vector3D(offset, offset, offset),
+				Vector3D(offset, offset, -offset)),
+		Triangle(Vector3D(offset, -offset, offset),
+				Vector3D(offset, -offset, -offset),
+				Vector3D(offset, offset, -offset)),
+
+		// left Sides
+		Triangle(Vector3D(-offset, -offset, offset),
+				Vector3D(-offset, offset, offset),
+				Vector3D(-offset, offset, -offset)),
+		Triangle(Vector3D(-offset, -offset, offset),
+				Vector3D(-offset, -offset, -offset),
+				Vector3D(-offset, offset, -offset)),
 	};
-	object->setPosition(2, 2, 2);
 
 	return object;
 }
@@ -56,9 +77,9 @@ Vector3D* Object::getPosition()
 
 void Object::Rotate(float XΘ, float YΘ, float ZΘ) {
 	for (int i = 0; i < triangles.size();i++) {
-		RotateZ(&triangles[i].a, XΘ);
-		RotateZ(&triangles[i].b, XΘ);
-		RotateZ(&triangles[i].c, XΘ);
+		RotateVector3D(&triangles[i].a, XΘ, YΘ, ZΘ);
+		RotateVector3D(&triangles[i].b, XΘ, YΘ, ZΘ);
+		RotateVector3D(&triangles[i].c, XΘ, YΘ, ZΘ);
 	}
 }
 

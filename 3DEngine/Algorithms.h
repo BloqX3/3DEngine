@@ -2,10 +2,13 @@
 #include "Core.h"
 #include <cmath>
 
-float Pithagors(Point p1);
-void RotateVector(Vector3D v, float XΘ, float YΘ, float ZΘ);
-void RotateZ(Vector3D* v, float newTheta);
 float toRad(float rad);
+float Pithagors(Point p1);
+void dotProduct(float** R, Vector3D* vec);
+//void RotatePoint(Point v, float XΘ, float YΘ, float ZΘ);
+void RotateVector3D(Vector3D* v, float XΘ, float YΘ, float ZΘ);
+void RotateZ(Vector3D* v, float newTheta);
+Vector3D normalizeVector(Vector3D v, float width, float height);
 
 template<typename T>
 void swap(T& lhs, T& rhs) {
@@ -30,7 +33,6 @@ void swap(T& lhs, T& rhs) {
 //        }
 //    }
 //}
-
 
 
 template<typename T>
@@ -58,8 +60,6 @@ void drawTriangle(IScreen<T>* screen, Triangle triangle, char color) {
     drawLine(screen, triangle.b, triangle.c, color);
     drawLine(screen, triangle.c, triangle.a, color);
 }
-
-Vector3D normalizeVector(Vector3D v, float width, float height);
 
 template<typename T>
 void drawTriangleNormalized(IScreen<T>* screen, Triangle triangle, char color) {

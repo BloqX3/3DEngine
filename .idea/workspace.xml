@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d0f21822-8732-4c86-83d7-ebe5fd2f7956" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/3DEngine/3DEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/3DEngine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/3DEngine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/3DEngine.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/Algorithms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/Algorithms.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/Algorithms.h" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/Algorithms.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/ConsoleScreen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/ConsoleScreen.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/Core.h" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/Core.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3DEngine/Object.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/3DEngine/Object.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="23zRehJe6lfun7gazxAxWVdNePK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d0f21822-8732-4c86-83d7-ebe5fd2f7956" name="Default Changelist" comment="" />
+      <created>1642735025479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642735025479</updated>
+      <workItem from="1642735027004" duration="44000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
