@@ -6,6 +6,7 @@
 #include "Object.h"
 #include <chrono>
 #include <thread>
+#include "World.h"
 
 /* Structure Goal
     World world(&screen);
@@ -33,23 +34,21 @@ int main()
 {
     // settings
     ConsoleScreen screen(110, 45);
+    World world(&screen);
+
     screen.Fill();
 
     Object* cube = Cube(0.5);
+    cube->setPosition(0, 0, 1);
 
-    Vector3D test(1,0,0);
-
+    world.Spawn(cube);
     // Action
     while (true) {
-        screen.Display();
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         screen.Fill('.');
-        cube->Rotate(0, 1, 0);
-
-        for (Triangle t : cube->triangles) {
-            drawTriangleNormalized(&screen, t, '#');
-        }
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        cube->Rotate(0, cube->getRotation().y + 1, 0);
+        
+        world.Render();
     }
 }
 

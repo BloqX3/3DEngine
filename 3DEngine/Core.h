@@ -21,6 +21,11 @@ public:
     float z;
     Vector3D();
     Vector3D(float X, float Y, float Z);
+    void operator +=(Vector3D op) { 
+        x += op.x;
+        y += op.y;
+        z += op.z;
+    }
     operator Point() const { return Point(x, y); }
     //float operator [](int i) const { return i == 0 ? x : i == 1 ? y : z; }
     float* operator [](int i) { return i == 0 ? &x : i == 1 ? &y : &z; }
@@ -35,7 +40,7 @@ public:
 };
 
 template<typename T>
-class IScreen
+class IScreen 
 {
 public:
     int Width;

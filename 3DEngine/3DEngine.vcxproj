@@ -151,12 +151,16 @@
     <ClCompile Include="ConsoleScreen.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PipeLine.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorithms.h" />
     <ClInclude Include="ConsoleScreen.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PipeLine.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

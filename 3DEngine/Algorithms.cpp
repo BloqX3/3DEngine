@@ -11,49 +11,27 @@ float Pithagors(Point p1)
     return sqrt(p1.x * p1.x + p1.y * p1.y);
 }
 
-/*Memory overflow!*/
-void dotProduct(float** R, Vector3D* vec)
+void dotProduct(Vector3D* R, Vector3D* vec)
 {
     Vector3D res;
 
     for (int y = 0; y < 3; y++) {
-        *res[y] += R[y][0] * vec->x;
-        *res[y] += R[y][1] * vec->y;
-        *res[y] += R[y][2] * vec->z;
+        *res[y] += R[y].x * vec->x;
+        *res[y] += R[y].y * vec->y;
+        *res[y] += R[y].z * vec->z;
     }
     (*vec) = res;
 }
 
-float** Rx(float Θ) {
-    float** R = new float* [3];
-    R[0] = new float[3] { 1, 0      , 0      };
-    R[1] = new float[3] { 0, cosf(Θ),-sinf(Θ)};
-    R[2] = new float[3] { 0, sinf(Θ), cosf(Θ)};
-    return R;
-}
-float** Ry(float Θ) {
-    float** R = new float* [3];
-    R[0] = new float[3]{ cosf(Θ), 0,sinf(Θ) };
-    R[1] = new float[3]{ 0      , 1,0       };
-    R[2] = new float[3]{ -sinf(Θ),0,cosf(Θ) };
-    return R;
-}
-float** Rz(float Θ) {
-    float** R = new float* [3];
-    R[0] = new float[3]{ cosf(Θ),-sinf(Θ),0 };
-    R[1] = new float[3]{ sinf(Θ), cosf(Θ),0 };
-    R[2] = new float[3]{ 0      , 0      ,1 };
-    return R;
+void prespectiveProjectVector(Vector3D* v) {
+    v->x = v->x / v->z;
+    v->y = v->y / v->z;
 }
 
-void RotateVector3D(Vector3D* v, float XΘ, float YΘ, float ZΘ){
-    dotProduct(Rx(toRad(XΘ)), v);
-    dotProduct(Ry(toRad(YΘ)), v);
-    dotProduct(Rz(toRad(ZΘ)), v);
-}
-
-Vector3D normalizeVector(Vector3D v, float width, float height) {
-    return Vector3D((v.x / (v.z + 1) + 0.5) * width, height - (v.y / (v.z + 1) + 0.5) * height , v.z);
+void normalizeVector(Vector3D* v, float width, float height) {
+    v->x = (0.5f + v->x) * width;
+    v->y = (0.5f - v->y) * height;
+    //return Vector3D(, height - (v->y/ (v->z + 1)  + 0.5) * height , v->z);
 }
 
 void RotateZ(Vector3D* v, float newTheta) {

@@ -1,10 +1,33 @@
 ﻿#include "Object.h"
 #include "Algorithms.h"
 
+
+
 Object::Object() {
 	Position = Vector3D();
 	Rotation = Vector3D();
+	R = new Vector3D[3];
+	R[0] = Vector3D();
+	R[1] = Vector3D();
+	R[2] = Vector3D();
 }
+
+void Rx(Vector3D* R,float Θ) {
+	R[0] = {1, 0      , 0      };
+	R[1] = {0, cosf(Θ),-sinf(Θ)};
+	R[2] = {0, sinf(Θ), cosf(Θ)};
+}
+void Ry(Vector3D* R, float Θ) {
+	R[0] = { cosf(Θ), 0,sinf(Θ)};
+	R[1] = { 0      , 1,0	   };
+	R[2] = {-sinf(Θ), 0,cosf(Θ)};
+}
+void Rz(Vector3D* R, float Θ) {
+	R[0] = {cosf(Θ),-sinf(Θ),0 };
+	R[1] = {sinf(Θ), cosf(Θ),0 };
+	R[2] = {0      , 0      ,1 };
+}
+
 
 Object* Cube(float side)
 {
@@ -63,7 +86,7 @@ Object* Cube(float side)
 	return object;
 }
 
-void Object::setPosition(int x, int y, int z)
+void Object::setPosition(float x, float y, float z)
 {
 	Position.x = x;
 	Position.y = y;
@@ -75,12 +98,44 @@ Vector3D* Object::getPosition()
 	return &Position;
 }
 
+
 void Object::Rotate(float XΘ, float YΘ, float ZΘ) {
-	for (int i = 0; i < triangles.size();i++) {
-		RotateVector3D(&triangles[i].a, XΘ, YΘ, ZΘ);
-		RotateVector3D(&triangles[i].b, XΘ, YΘ, ZΘ);
-		RotateVector3D(&triangles[i].c, XΘ, YΘ, ZΘ);
+	Rotation.x = fmod(XΘ, 360);
+	Rotation.y = fmod(YΘ, 360);
+	Rotation.z = fmod(ZΘ, 360);
+
+}
+
+void Object::ApplyRotation() {
+	/* assuming that 3 for loops gives simular performance to 1 loop with 3 opeartions
+	*  this arrangent should give better performance and memory optimization due to (R)
+	*  incoming feature: dot product of the 3 rotation matrices
+	*/
+
+	// Rotate X
+	Rx(R, toRad(Rotation.x));
+	for (int i = 0; i < triangles.size(); i++) {
+		dotProduct(R, &triangles[i].a);
+		dotProduct(R, &triangles[i].b);
+		dotProduct(R, &triangles[i].c);
 	}
+
+	// Rotate Y
+	Ry(R, toRad(Rotation.y));
+	for (int i = 0; i < triangles.size(); i++) {
+		dotProduct(R, &triangles[i].a);
+		dotProduct(R, &triangles[i].b);
+		dotProduct(R, &triangles[i].c);
+	}
+
+	// Rotate Z
+	Rz(R, toRad(Rotation.z));
+	for (int i = 0; i < triangles.size(); i++) {
+		dotProduct(R, &triangles[i].a);
+		dotProduct(R, &triangles[i].b);
+		dotProduct(R, &triangles[i].c);
+	}
+
 }
 
 Vector3D Object::getRotation()
