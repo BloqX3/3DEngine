@@ -11,6 +11,8 @@ void RotateZ(Vector3D* v, float newTheta);
 void prespectiveProjectVector(Vector3D* v);
 void normalizeVector(Vector3D* v, float width, float height);
 
+float Distance(Point p1, Point p2, Point p3);
+
 template<typename T>
 void swap(T& lhs, T& rhs) {
     T holder = lhs;
@@ -35,7 +37,8 @@ void swap(T& lhs, T& rhs) {
 //    }
 //}
 
-
+bool isClockWise(Triangle triangle);
+#pragma region DrawingAlgorithms
 template<typename T>
 void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
 
@@ -60,3 +63,28 @@ void drawTriangle(IScreen<T>* screen, Triangle triangle, char color) {
     drawLine(screen, triangle.b, triangle.c, color);
     drawLine(screen, triangle.c, triangle.a, color);
 }
+
+template<typename T>
+void rasterizeTriangle(IScreen<T>* screen, Triangle triangle, char color) {
+    Point p1 = triangle.a;
+    Point p2 = triangle.b;
+
+    Point p = p2 - p1;
+    float m = p.y / p.x;
+    float length = Pithagors(p);
+
+    float xL = 1.0f / sqrtf(1.0f + m * m);
+    float yL = (std::isinf(m) ? 1.0f : m * xL);
+
+    if (p1.x > p2.x || (p1.x == p2.x) && p1.y > p2.y)
+        swap(p1, p2);
+
+    for (int i = 0; i < length; i++) {
+        Point pn((i * xL + p1.x), (i * yL + p1.y));
+
+        drawLine(screen, pn, triangle.c, color);
+        //screen->setPixel(x, y, color);
+
+    }
+}
+#pragma endregion

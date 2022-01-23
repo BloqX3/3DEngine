@@ -17,8 +17,9 @@ private:
 public:
 	Vector3D* R;
 	Object();
-	std::vector<Triangle> triangles; 
-	//std::vector<int> indices;
+	//std::vector<Triangle> triangles; 
+	std::vector<Vector3D> vertices;
+	std::vector<int> indices;
 
 	void setPosition(float x, float y, float z);
 	Vector3D* getPosition();

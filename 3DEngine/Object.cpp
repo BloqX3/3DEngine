@@ -33,55 +33,102 @@ Object* Cube(float side)
 {
 	Object* object = new Object;
 	float offset = side / 2.0;
-	/*Under Construction!*/
-	object->triangles = { 
-		// front
-		Triangle(Vector3D(-offset, offset, offset),
-				Vector3D(offset, offset, offset),
-				Vector3D(-offset, -offset, offset)),
-		Triangle(Vector3D(offset, offset, offset),
-				Vector3D(offset, -offset, offset),
-				Vector3D(-offset, -offset, offset)),
 
-		// back
-		Triangle(Vector3D(-offset, offset, -offset),
-				Vector3D(offset, offset, -offset),
-				Vector3D(-offset, -offset, -offset)),
-		Triangle(Vector3D(offset, offset, -offset),
-				Vector3D(offset, -offset, -offset),
-				Vector3D(-offset, -offset, -offset)),
+	// vertices
+	object->vertices = {
+		// Front face
+		Vector3D(-offset, -offset,  offset),
+		Vector3D(offset, -offset,  offset),
+		Vector3D(offset,  offset,  offset),
+		Vector3D(-offset,  offset,  offset),
 
-		// Top
-		Triangle(Vector3D(-offset, offset, -offset),
-				Vector3D(offset, offset, offset),
-				Vector3D(-offset, offset, offset)),
-		Triangle(Vector3D(offset, offset, offset),
-				Vector3D(-offset, offset, -offset),
-				Vector3D(offset, offset, -offset)),
-		// Bottom
-		Triangle(Vector3D(-offset, -offset, -offset),
-				Vector3D(offset, -offset, offset),
-				Vector3D(-offset, -offset, offset)),
-		Triangle(Vector3D(offset, -offset, offset),
-				Vector3D(-offset, -offset, -offset),
-				Vector3D(offset, -offset, -offset)),
+		// Back face
+		Vector3D(-offset, -offset, -offset),
+		Vector3D(-offset,  offset, -offset),
+		Vector3D(offset,  offset, -offset),
+		Vector3D(offset, -offset, -offset),
 
-		// right Sides
-		Triangle(Vector3D(offset, -offset, offset),
-				Vector3D(offset, offset, offset),
-				Vector3D(offset, offset, -offset)),
-		Triangle(Vector3D(offset, -offset, offset),
-				Vector3D(offset, -offset, -offset),
-				Vector3D(offset, offset, -offset)),
+		// Top face
+		Vector3D(-offset,  offset, -offset),
+		Vector3D(-offset,  offset,  offset),
+		Vector3D(offset,  offset,  offset),
+		Vector3D(offset,  offset, -offset),
 
-		// left Sides
-		Triangle(Vector3D(-offset, -offset, offset),
-				Vector3D(-offset, offset, offset),
-				Vector3D(-offset, offset, -offset)),
-		Triangle(Vector3D(-offset, -offset, offset),
-				Vector3D(-offset, -offset, -offset),
-				Vector3D(-offset, offset, -offset)),
+		// Bottom face
+		Vector3D(-offset, -offset, -offset),
+		Vector3D(offset, -offset, -offset),
+		Vector3D(offset, -offset,  offset),
+		Vector3D(-offset, -offset,  offset),
+
+		// Right face
+		Vector3D(offset, -offset, -offset),
+		Vector3D(offset,  offset, -offset),
+		Vector3D(offset,  offset,  offset),
+		Vector3D(offset, -offset,  offset),
+
+		// Left face
+		Vector3D(-offset, -offset, -offset),
+		Vector3D(-offset, -offset,  offset),
+		Vector3D(-offset,  offset,  offset),
+		Vector3D(-offset,  offset, -offset)
 	};
+
+	// indices
+	object->indices = {
+		0,  1,  2,      0,  2,  3,    // front
+		4,  5,  6,      4,  6,  7,    // back
+		8,  9,  10,     8,  10, 11,   // top
+		12, 13, 14,     12, 14, 15,   // bottom
+		16, 17, 18,     16, 18, 19,   // right
+		20, 21, 22,     20, 22, 23,   // left
+	};
+
+	/*Under Construction!*/
+	//object->triangles = { 
+
+	//	// front
+	//	Triangle(Vector3D(-offset, offset, -offset),
+	//			Vector3D(offset, offset, -offset),
+	//			Vector3D(offset, -offset, -offset)),
+	//	Triangle(Vector3D(offset, -offset, -offset),
+	//			Vector3D(-offset, -offset, -offset),
+	//			Vector3D(-offset, offset, -offset))
+	//	//// back
+	//	//Triangle(Vector3D(-offset, offset, offset),
+	//	//		Vector3D(offset, offset, offset),
+	//	//		Vector3D(-offset, -offset, offset)),
+	//	//Triangle(Vector3D(offset, offset, offset),
+	//	//		Vector3D(offset, -offset, offset),
+	//	//		Vector3D(-offset, -offset, offset)),
+	//	//// Top
+	//	//Triangle(Vector3D(-offset, offset, -offset),
+	//	//		Vector3D(offset, offset, offset),
+	//	//		Vector3D(-offset, offset, offset)),
+	//	//Triangle(Vector3D(offset, offset, offset),
+	//	//		Vector3D(-offset, offset, -offset),
+	//	//		Vector3D(offset, offset, -offset)),
+	//	//// Bottom
+	//	//Triangle(Vector3D(-offset, -offset, -offset),
+	//	//		Vector3D(offset, -offset, offset),
+	//	//		Vector3D(-offset, -offset, offset)),
+	//	//Triangle(Vector3D(offset, -offset, offset),
+	//	//		Vector3D(-offset, -offset, -offset),
+	//	//		Vector3D(offset, -offset, -offset)),
+	//	//// right Sides
+	//	//Triangle(Vector3D(offset, -offset, offset),
+	//	//		Vector3D(offset, offset, offset),
+	//	//		Vector3D(offset, offset, -offset)),
+	//	//Triangle(Vector3D(offset, -offset, offset),
+	//	//		Vector3D(offset, -offset, -offset),
+	//	//		Vector3D(offset, offset, -offset)),
+	//	//// left Sides
+	//	//Triangle(Vector3D(-offset, -offset, offset),
+	//	//		Vector3D(-offset, offset, offset),
+	//	//		Vector3D(-offset, offset, -offset)),
+	//	//Triangle(Vector3D(-offset, -offset, offset),
+	//	//		Vector3D(-offset, -offset, -offset),
+	//	//		Vector3D(-offset, offset, -offset)),
+	//};
 
 	return object;
 }
@@ -114,28 +161,21 @@ void Object::ApplyRotation() {
 
 	// Rotate X
 	Rx(R, toRad(Rotation.x));
-	for (int i = 0; i < triangles.size(); i++) {
-		dotProduct(R, &triangles[i].a);
-		dotProduct(R, &triangles[i].b);
-		dotProduct(R, &triangles[i].c);
+	for (int i = 0; i < vertices.size(); i++) {
+		dotProduct(R, &vertices[i]);
 	}
 
 	// Rotate Y
 	Ry(R, toRad(Rotation.y));
-	for (int i = 0; i < triangles.size(); i++) {
-		dotProduct(R, &triangles[i].a);
-		dotProduct(R, &triangles[i].b);
-		dotProduct(R, &triangles[i].c);
+	for (int i = 0; i < vertices.size(); i++) {
+		dotProduct(R, &vertices[i]);
 	}
 
 	// Rotate Z
 	Rz(R, toRad(Rotation.z));
-	for (int i = 0; i < triangles.size(); i++) {
-		dotProduct(R, &triangles[i].a);
-		dotProduct(R, &triangles[i].b);
-		dotProduct(R, &triangles[i].c);
+	for (int i = 0; i < vertices.size(); i++) {
+		dotProduct(R, &vertices[i]);
 	}
-
 }
 
 Vector3D Object::getRotation()

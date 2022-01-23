@@ -1,12 +1,11 @@
 ﻿// 3DEngine.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include "World.h"
 #include "ConsoleScreen.h"
-#include "Algorithms.h"
 #include "Object.h"
 #include <chrono>
 #include <thread>
-#include "World.h"
 
 /* Structure Goal
     World world(&screen);
@@ -42,9 +41,10 @@ int main()
     cube->setPosition(0, 0, 1);
 
     world.Spawn(cube);
+
     // Action
     while (true) {
-        screen.Fill('.');
+        screen.Fill(' ');
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         cube->Rotate(0, cube->getRotation().y + 1, 0);
         

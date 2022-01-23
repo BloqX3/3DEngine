@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Algorithms.h"
 
+#include <iostream>
 template<typename T>
 class PipeLine {
 public:
@@ -13,26 +14,29 @@ public:
 
 		Screen->Display();
 	}
+
 	void transformPlayer(Object* player, Vector3D* WorldRoation) {
 		// Rotation
 		player->ApplyRotation();
 
 		// Apply position
-		for (int i = 0; i < player->triangles.size();i++) {
-			player->triangles[i].a += *player->getPosition();
-			player->triangles[i].b += *player->getPosition();
-			player->triangles[i].c += *player->getPosition();
+		for (int i = 0; i < player->vertices.size();i++) {
+			player->vertices[i] += *player->getPosition();
 		}
 
 		// world Rotation
 		player->Rotate(WorldRoation->x, WorldRoation->y, WorldRoation->z);
 		player->ApplyRotation();
 
-		for (Triangle triangle : player->triangles) {
-			transformTriangle(triangle);
+		for (int i = 0; i < player->indices.size(); i += 3) {
+			transformTriangle(Triangle(player->vertices[player->indices[i    ]],
+									   player->vertices[player->indices[i + 1]],
+									   player->vertices[player->indices[i + 2]])
+			);
 		}
 
 	}
+
 	void transformTriangle(Triangle triangle) {
 		// projection
 		prespectiveProjectVector(&triangle.a);
@@ -43,8 +47,18 @@ public:
 		normalizeVector(&triangle.a, Screen->Width, Screen->Height);
 		normalizeVector(&triangle.b, Screen->Width, Screen->Height);
 		normalizeVector(&triangle.c, Screen->Width, Screen->Height);
-
-		drawTriangle(Screen, triangle, '#');
+		if (isClockWise(triangle))
+			rasterizeTriangle(Screen, triangle, '.');
+	}
+	/* experimental */
+	std::vector<char> Shadows = {
+		'-',
+		'+',
+		'=',
+		'#',
+	};
+	T pixelShader(Triangle triangle) {
+		return Shadows[std::fminf(std::abs(Distance(triangle.a, triangle.b, triangle.c))*3.0f, 100.0f)*3.0f/100.0f];
 	}
 
 };
