@@ -2,10 +2,7 @@
 //
 
 #include "World.h"
-#include "ConsoleScreen.h"
-#include "Object.h"
-#include <chrono>
-#include <thread>
+//#include "ObjLoader.h"
 
 /* Structure Goal
     World world(&screen);
@@ -22,7 +19,7 @@
 
     cube.Rotate(30, 30, 30);
     cube.getRotation().x
-    cube.setPosition(0,0,0)
+    cube.setPosition(0,0,0) 
     cube.getPosition()->x
 
     while(true)
@@ -31,23 +28,30 @@
 
 int main()
 {
-    // settings
+    // settings, your console screen must have the same dimensions
     ConsoleScreen screen(110, 45);
     World world(&screen);
-
-    screen.Fill();
-
+    //object loading
+    //Object* cube = loadObject("location");
+    
+    // setting up scene
     Object* cube = Cube(0.5);
-    cube->setPosition(0, 0, 1);
-
+    Object* pyramid = Pyramid(0.5);
     world.Spawn(cube);
+    world.Spawn(pyramid);
+    
+    cube->Move(0.25, 0.25);
+    pyramid->Move(-0.25, -0.25);
 
-    // Action
+    // pushing back the camera
+    world.viewPort->Move(0, 0, -1.5);
+    world.FPS = 140;
+    // rendering
     while (true) {
-        screen.Fill(' ');
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        cube->Rotate(0, cube->getRotation().y + 1, 0);
-        
+        screen.Fill('.');
+
+        // rotating the camera around the origin
+        world.viewPort->worldRotate(0, 1);
         world.Render();
     }
 }

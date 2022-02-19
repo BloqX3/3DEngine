@@ -129,7 +129,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -139,6 +139,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,6 +154,7 @@
     <ClCompile Include="ConsoleScreen.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="PipeLine.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -161,6 +163,7 @@
     <ClInclude Include="ConsoleScreen.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="PipeLine.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

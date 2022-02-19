@@ -23,6 +23,8 @@ void ConsoleScreen::Fill(char color) {
 }
 
 void ConsoleScreen::setPixel(short x, short y, char color) {
+    // if is temporary until clipping is implementing
+    if (x < Width && x>=0 && y < Height && y>=0)
     screen[y * Width + x] = color;
 }
 void ConsoleScreen::Display() {

@@ -2,12 +2,15 @@
 #include "Core.h"
 #include <cmath>
 
+#define π 3.14159265358979323846
 float toRad(float rad);
 float Pithagors(Point p1);
-void dotProduct(Vector3D* R, Vector3D* vec);
-//void RotatePoint(Point v, float XΘ, float YΘ, float ZΘ);
-//void RotateVector3D(Vector3D* v, float XΘ, float YΘ, float ZΘ);
-void RotateZ(Vector3D* v, float newTheta);
+/// <summary>
+/// returns the dot product of two 3x3 Vector3D array
+/// </summary>
+/// <param name="R1">3x3 Vector3D aray</param>
+/// <param name="R2">3x3 Vector3D aray</param>
+void dotProduct(Vector3D* Buffer, Vector3D* R1, Vector3D* R2);
 void prespectiveProjectVector(Vector3D* v);
 void normalizeVector(Vector3D* v, float width, float height);
 
@@ -38,6 +41,13 @@ void swap(T& lhs, T& rhs) {
 //}
 
 bool isClockWise(Triangle triangle);
+
+#pragma region Rotation
+void getRx(Vector3D* R, float Θ);
+void getRy(Vector3D* R, float Θ);
+void getRz(Vector3D* R, float Θ);
+#pragma endregion
+
 #pragma region DrawingAlgorithms
 template<typename T>
 void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
@@ -58,14 +68,14 @@ void drawLine(IScreen<T>* screen, Point p1, Point p2, T color) {
 }
 
 template<typename T>
-void drawTriangle(IScreen<T>* screen, Triangle triangle, char color) {
+void drawTriangle(IScreen<T>* screen, Triangle triangle, T color) {
     drawLine(screen, triangle.a, triangle.b, color);
     drawLine(screen, triangle.b, triangle.c, color);
     drawLine(screen, triangle.c, triangle.a, color);
 }
 
 template<typename T>
-void rasterizeTriangle(IScreen<T>* screen, Triangle triangle, char color) {
+void rasterizeTriangle(IScreen<T>* screen, Triangle triangle, T color) {
     Point p1 = triangle.a;
     Point p2 = triangle.b;
 
